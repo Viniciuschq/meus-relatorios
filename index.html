@@ -1,0 +1,176 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Relatório Completo - JULHO 2025</title>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                color: #333;
+            }
+            .container {
+                max-width: 1000px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            h1 {
+                color: #2E86C1;
+                text-align: center;
+            }
+            .card {
+                background: #f9f9f9;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 20px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .metric-container {
+                display: flex;
+                gap: 15px;
+                margin-top: 20px;
+            }
+            .metric {
+                flex: 1;
+                padding: 15px;
+                background: white;
+                border-radius: 5px;
+                text-align: center;
+            }
+            .metric-value {
+                font-size: 24px;
+                font-weight: bold;
+                color: #2E86C1;
+                margin: 10px 0;
+            }
+            .metric-label {
+                color: #666;
+            }
+            .graph-container {
+                margin-top: 30px;
+            }
+            .positive {
+                color: #27ae60;
+            }
+            .negative {
+                color: #e74c3c;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Relatório de Performance</h1>
+            <div class="card">
+                <h2 id="header-title">Carteira Geral</h2>
+                <div id="unidades-list"></div>
+
+                <div class="metric-container">
+                    <div class="metric">
+                        <div class="metric-label">Receitas Totais</div>
+                        <div class="metric-value" id="receitas">R$ 0,00</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Ticket Médio</div>
+                        <div class="metric-value" id="ticket">R$ 0,00</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Pessoas Atendidas</div>
+                        <div class="metric-value" id="pessoas">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card graph-container">
+                <h2>Comparativo com a Carteira</h2>
+                <div id="grafico-comparativo"></div>
+            </div>
+        </div>
+
+        <script>
+            // Dados completos
+            const dadosCompletos = {"geral": {"unidades": ["Alegrete 01 (RS)", "Bagé 01 (RS)", "Bagé 02 (RS)", "Cachoeira do Sul 01 (RS)", "Canela 01 (RS)", "Canoas 01 - Shopping Canoas (RS)", "Canoas 02 (RS)", "Capão da Canoa 01 (RS)", "Carazinho 01 (RS)", "Caxias do Sul 01 (RS)", "Cruz Alta 01 (RS)", "Dom Pedrito 01 (RS)", "Frederico Westphalen 01 (RS)", "Gramado 01 (RS)", "Gravataí 01 (RS)", "Ibirubá 01 (RS)", "Ijuí 01 (RS)", "Itaqui 01 (RS)", "Lajeado 01 (RS)", "Lajeado 02 - Havan (RS)", "Marau 01 (RS)", "Montenegro 01 (RS)", "Novo Hamburgo 02 - Shopping Bourbon (RS)", "Palmeira das Missões 01 (RS)", "Passo Fundo 01 - Passo Fundo Shopping (RS)", "Passo Fundo 02 - Shopping Bella Citta (RS)", "Pelotas 01 - Shopping Pelotas (RS)", "Porto Alegre 02 - Pontal Shopping (RS)", "Porto Alegre 03 (RS)", "Rio Grande 01 (RS)", "Rosário do Sul 01 (RS)", "Santa Cruz do Sul 01 (RS)", "Santa Maria 01 (RS)", "Santa Maria 02 - ROYAL PLAZA SHOPPING (RS)", "Santa Maria 03 - Shopping Praça Nova (RS)", "Santa Rosa 01 (RS)", "Santana do Livramento 01 (RS)", "Santiago 01 (RS)", "Santo Ângelo 01 (RS)", "São Borja 01 (RS)", "São Gabriel 01 (RS)", "São Leopoldo 01 - Bourbon Shopping São Leopoldo (RS)", "São Luiz Gonzaga 01 (RS)", "Sarandi 01 (RS)", "Teutônia 01 (RS)", "Torres 02 (RS)", "Tramandaí 03 (RS)", "Três de Maio 01 (RS)", "Três Passos 01 (RS)", "Uruguaiana 01 (RS)"], "receitas": 2042891.46, "ticket_medio": 27.7484, "pessoas_atendidas": 73769.0, "comparativo": null}, "leonardo": {"unidades": ["Alegrete 01 (RS)", "Bagé 01 (RS)", "Dom Pedrito 01 (RS)", "Itaqui 01 (RS)", "Rosário do Sul 01 (RS)", "Santana do Livramento 01 (RS)", "Uruguaiana 01 (RS)"], "receitas": 34823.33, "ticket_medio": 28.33, "pessoas_atendidas": 1229, "comparativo": {"receitas": {"acima_abaixo": -14.769505179682914}, "ticket": {"acima_abaixo": 2.0959767049631624}, "pessoas": {"acima_abaixo": -16.69942658840435}}}, "augusto": {"unidades": ["Bagé 02 (RS)"], "receitas": 26981.92, "ticket_medio": 23.32, "pessoas_atendidas": 1157, "comparativo": {"receitas": {"acima_abaixo": -33.96144501969772}, "ticket": {"acima_abaixo": -15.959118363581323}, "pessoas": {"acima_abaixo": -21.579525274844453}}}, "marcio": {"unidades": ["Cachoeira do Sul 01 (RS)", "Ibirubá 01 (RS)", "São Borja 01 (RS)"], "receitas": 18954.51, "ticket_medio": 28.68, "pessoas_atendidas": 661, "comparativo": {"receitas": {"acima_abaixo": -53.60862196761056}, "ticket": {"acima_abaixo": 3.357310691787633}, "pessoas": {"acima_abaixo": -55.19798289254294}}}, "fabio": {"unidades": ["Canela 01 (RS)", "Cruz Alta 01 (RS)", "Gramado 01 (RS)", "Gravataí 01 (RS)", "Porto Alegre 02 - Pontal Shopping (RS)", "Porto Alegre 03 (RS)", "Santo Ângelo 01 (RS)", "São Gabriel 01 (RS)", "Santa Rosa 01 (RS)"], "receitas": 75062.2, "ticket_medio": 28.67, "pessoas_atendidas": 2618, "comparativo": {"receitas": {"acima_abaixo": 83.71558516378545}, "ticket": {"acima_abaixo": 3.3212725778783696}, "pessoas": {"acima_abaixo": 77.44581057083597}}}, "rochele": {"unidades": ["Canoas 01 - Shopping Canoas (RS)", "Canoas 02 (RS)"], "receitas": 38770.18, "ticket_medio": 23.24, "pessoas_atendidas": 1668, "comparativo": {"receitas": {"acima_abaixo": -5.109545075879851}, "ticket": {"acima_abaixo": -16.247423274855493}, "pessoas": {"acima_abaixo": 13.055619569195725}}}, "filipe": {"unidades": ["Capão da Canoa 01 (RS)", "Torres 02 (RS)"], "receitas": 24712.18, "ticket_medio": 30.97, "pessoas_atendidas": 798, "comparativo": {"receitas": {"acima_abaixo": -39.51665939217348}, "ticket": {"acima_abaixo": 11.610038777010562}, "pessoas": {"acima_abaixo": -45.91223955862219}}}, "evandro": {"unidades": ["Carazinho 01 (RS)", "Frederico Westphalen 01 (RS)", "Ijuí 01 (RS)", "Passo Fundo 01 - Passo Fundo Shopping (RS)"], "receitas": 35320.26, "ticket_medio": 29.83, "pessoas_atendidas": 1184, "comparativo": {"receitas": {"acima_abaixo": -13.55326337308199}, "ticket": {"acima_abaixo": 7.50169379135373}, "pessoas": {"acima_abaixo": -19.749488267429413}}}, "patric": {"unidades": ["Caxias do Sul 01 (RS)"], "receitas": 64030.36, "ticket_medio": 27.26, "pessoas_atendidas": 2349, "comparativo": {"receitas": {"acima_abaixo": 56.715031742312924}, "ticket": {"acima_abaixo": -1.7601014833287636}, "pessoas": {"acima_abaixo": 59.213219645108374}}}, "vania": {"unidades": ["Lajeado 01 (RS)", "Lajeado 02 - Havan (RS)"], "receitas": 41788.73, "ticket_medio": 31.85, "pessoas_atendidas": 1312, "comparativo": {"receitas": {"acima_abaixo": 2.2783902576987694}, "ticket": {"acima_abaixo": 14.781392801026369}, "pessoas": {"acima_abaixo": -11.073757269313674}}}, "gabi": {"unidades": ["Marau 01 (RS)"], "receitas": 27497.53, "ticket_medio": 27.8, "pessoas_atendidas": 989, "comparativo": {"receitas": {"acima_abaixo": -32.699483701400375}, "ticket": {"acima_abaixo": 0.18595666777183742}, "pessoas": {"acima_abaixo": -32.96642220987136}}}, "claudia": {"unidades": ["Montenegro 01 (RS)", "Novo Hamburgo 02 - Shopping Bourbon (RS)", "Teutônia 01 (RS)"], "receitas": 24725.54, "ticket_medio": 26.85, "pessoas_atendidas": 921, "comparativo": {"receitas": {"acima_abaixo": -39.48396064076747}, "ticket": {"acima_abaixo": -3.2376641536088524}, "pessoas": {"acima_abaixo": -37.57540430262035}}}, "dionatas": {"unidades": ["Palmeira das Missões 01 (RS)"], "receitas": 24071.02, "ticket_medio": 33.57, "pessoas_atendidas": 717, "comparativo": {"receitas": {"acima_abaixo": -41.08590575830201}, "ticket": {"acima_abaixo": 20.979948393420884}, "pessoas": {"acima_abaixo": -51.40235058086731}}}, "julio": {"unidades": ["Passo Fundo 02 - Shopping Bella Citta (RS)", "São Luiz Gonzaga 01 (RS)"], "receitas": 41881.94, "ticket_medio": 22.86, "pessoas_atendidas": 1832, "comparativo": {"receitas": {"acima_abaixo": 2.506522789027671}, "ticket": {"acima_abaixo": -17.616871603407766}, "pessoas": {"acima_abaixo": 24.171399910531516}}}, "reges": {"unidades": ["Pelotas 01 - Shopping Pelotas (RS)", "Rio Grande 01 (RS)"], "receitas": 39892.59, "ticket_medio": 23.03, "pessoas_atendidas": 1732, "comparativo": {"receitas": {"acima_abaixo": -2.3624338808484806}, "ticket": {"acima_abaixo": -17.004223666950164}, "pessoas": {"acima_abaixo": 17.393485068253593}}}, "bruno": {"unidades": ["Santa Cruz do Sul 01 (RS)"], "receitas": 43873.79, "ticket_medio": 22.8, "pessoas_atendidas": 1924, "comparativo": {"receitas": {"acima_abaixo": 7.381598237235767}, "ticket": {"acima_abaixo": -17.833100286863385}, "pessoas": {"acima_abaixo": 30.4070815654272}}}, "diogo": {"unidades": ["Santa Maria 01 (RS)", "Santa Maria 02 - ROYAL PLAZA SHOPPING (RS)", "Santa Maria 03 - Shopping Praça Nova (RS)"], "receitas": 32828.27, "ticket_medio": 23.69, "pessoas_atendidas": 1386, "comparativo": {"receitas": {"acima_abaixo": -19.652437139269267}, "ticket": {"acima_abaixo": -14.625708148938314}, "pessoas": {"acima_abaixo": -6.058100286028013}}}, "elenise": {"unidades": ["Santiago 01 (RS)"], "receitas": 57630.5, "ticket_medio": 25.88, "pessoas_atendidas": 2227, "comparativo": {"receitas": {"acima_abaixo": 41.05130186407456}, "ticket": {"acima_abaixo": -6.733361202808094}, "pessoas": {"acima_abaixo": 50.944163537529306}}}, "jesus": {"unidades": ["São Leopoldo 01 - Bourbon Shopping São Leopoldo (RS)", "Tramandaí 03 (RS)"], "receitas": 45604.08, "ticket_medio": 26.0, "pessoas_atendidas": 1754, "comparativo": {"receitas": {"acima_abaixo": 11.616502621240587}, "ticket": {"acima_abaixo": -6.300903835896846}, "pessoas": {"acima_abaixo": 18.884626333554735}}}, "lucas": {"unidades": ["Sarandi 01 (RS)"], "receitas": 34391.06, "ticket_medio": 33.1, "pessoas_atendidas": 1039, "comparativo": {"receitas": {"acima_abaixo": -15.82749090350596}, "ticket": {"acima_abaixo": 19.286157039685175}, "pessoas": {"acima_abaixo": -29.5774647887324}}}, "gilberto": {"unidades": ["Três de Maio 01 (RS)"], "receitas": 38956.0, "ticket_medio": 30.99, "pessoas_atendidas": 1257, "comparativo": {"receitas": {"acima_abaixo": -4.654748520021715}, "ticket": {"acima_abaixo": 11.6821150048291}, "pessoas": {"acima_abaixo": -14.80161043256653}}}, "vanderlei": {"unidades": ["Três Passos 01 (RS)"], "receitas": 23223.4, "ticket_medio": 27.45, "pessoas_atendidas": 846, "comparativo": {"receitas": {"acima_abaixo": -43.16046531419735}, "ticket": {"acima_abaixo": -1.0753773190526332}, "pessoas": {"acima_abaixo": -42.65884043432879}}}};
+
+            // Elementos da interface
+            const headerTitle = document.getElementById('header-title');
+            const unidadesList = document.getElementById('unidades-list');
+            const receitasElement = document.getElementById('receitas');
+            const ticketElement = document.getElementById('ticket');
+            const pessoasElement = document.getElementById('pessoas');
+
+            // Função para formatar moeda
+            function formatCurrency(value) {
+                return 'R$ ' + value.toLocaleString('pt-BR', { 
+                    minimumFractionDigits: 2, 
+                    maximumFractionDigits: 2 
+                });
+            }
+
+            // Função para atualizar a interface
+            function updateInterface() {
+                const params = new URLSearchParams(window.location.search);
+                const franqueado = params.get('franqueado') || 'geral';
+                const dados = dadosCompletos[franqueado] || dadosCompletos.geral;
+
+                // Atualiza o cabeçalho
+                headerTitle.textContent = franqueado === 'geral' 
+                    ? 'Carteira Geral' 
+                    : `Franqueado: ${franqueado}`;
+
+                // Atualiza a lista de unidades
+                if (dados.unidades && dados.unidades.length > 0) {
+                    unidadesList.innerHTML = `<p><strong>Unidades:</strong> ${dados.unidades.join(', ')}</p>`;
+                } else {
+                    unidadesList.innerHTML = '';
+                }
+
+                // Atualiza as métricas
+                if (dados.receitas) {
+                    receitasElement.textContent = formatCurrency(dados.receitas);
+                }
+
+                if (dados.ticket_medio) {
+                    ticketElement.textContent = formatCurrency(dados.ticket_medio);
+                }
+
+                if (dados.pessoas_atendidas) {
+                    pessoasElement.textContent = dados.pessoas_atendidas.toLocaleString('pt-BR');
+                }
+
+                // Atualiza o gráfico comparativo (se houver dados)
+                if (dados.comparativo) {
+                    const metrics = ['Receitas', 'Ticket Médio', 'Pessoas'];
+                    const values = [
+                        dados.comparativo.receitas.acima_abaixo,
+                        dados.comparativo.ticket.acima_abaixo,
+                        dados.comparativo.pessoas.acima_abaixo
+                    ];
+
+                    const trace = {
+                        x: metrics,
+                        y: values,
+                        type: 'bar',
+                        marker: {
+                            color: values.map(v => v >= 0 ? '#27ae60' : '#e74c3c')
+                        }
+                    };
+
+                    const layout = {
+                        title: '% Acima/Abaixo da Média da Carteira',
+                        yaxis: { title: 'Percentual' },
+                        xaxis: { title: 'Métrica' }
+                    };
+
+                    Plotly.newPlot('grafico-comparativo', [trace], layout);
+                }
+            }
+
+            // Inicializa
+            updateInterface();
+
+            // Atualiza quando os parâmetros da URL mudam
+            window.addEventListener('popstate', updateInterface);
+        </script>
+    </body>
+    </html>
+    
